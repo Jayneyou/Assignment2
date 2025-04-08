@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_grey"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".view.LoginActivity">
+
+    <!--    Title   -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Login"
+        android:textSize="32sp"
+        android:layout_gravity="center"
+        android:paddingBottom="24dp" />
+
+    <!--    Email input     -->
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        android:ems="15"
+        android:layout_gravity="center"
+        android:inputType="textEmailAddress"
+        android:padding="8dp" />
+
+
+    <!--    Password Input  -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Password"
+        android:ems="15"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:padding="8dp" />
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        android:ems="17"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/btn_green"
+        android:text="Login" />
+
+    <!-- Register click -->
+    <TextView
+        android:id="@+id/registerClick"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Register Now"
+        android:textColor="@color/linkblue" />
+
+
+</LinearLayout>

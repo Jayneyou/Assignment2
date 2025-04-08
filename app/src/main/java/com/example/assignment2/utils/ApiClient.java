@@ -100,20 +100,8 @@ public class ApiClient {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String responseData = response.body().string();
-                    // ----- parse data
                     try {
-                        JSONObject jsonObject = new JSONObject(responseData);
-
-                        String title = jsonObject.getString("Title");
-                        String year = jsonObject.getString("Year");
-                        String plot = jsonObject.getString("Plot");
-                        String imdbRating = jsonObject.getString("imdbRating");
-                        String imdbID = jsonObject.getString("imdbID");
-                        String production = jsonObject.optString("Production", "N/A");
-                        String postUrl = jsonObject.getString("Poster");
-
-                        Movie movieDetail = new Movie(title, year, plot, imdbRating, production, imdbID, postUrl);
-
+                        Movie movieDetail = MovieParser.parseMovieDetail(responseData);
                         callback.onSuccess(movieDetail);
                     } catch (JSONException e) {
                         callback.onError("JSON parsing error: " + e.getMessage());

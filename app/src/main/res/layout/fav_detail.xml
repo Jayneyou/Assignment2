@@ -11,17 +11,18 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Back button-->
         <Button
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#E0E0E0"
+            android:backgroundTint="@color/lightgrey"
             android:textSize="15sp"
             android:text="Back"
             android:layout_marginBottom="15dp"
             android:textColor="@color/black" />
 
-
+        <!-- Poster  -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,13 +38,14 @@
                 android:adjustViewBounds="true" />
         </androidx.cardview.widget.CardView>
 
+        <!-- Title-->
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#212121"
+            android:textColor="@color/black"
             android:paddingBottom="8dp"
             android:text="Title" />
 
@@ -54,6 +56,7 @@
             android:paddingTop="12dp"
             android:paddingBottom="12dp">
 
+            <!--  Year-->
             <TextView
                 android:id="@+id/year"
                 android:layout_width="0dp"
@@ -62,7 +65,7 @@
                 android:textSize="16sp"
                 android:text="Year"
                 android:textColor="@color/font_grey"/>
-
+            <!--  Runtime-->
             <TextView
                 android:id="@+id/runtime"
                 android:layout_width="0dp"
@@ -71,7 +74,7 @@
                 android:textSize="16sp"
                 android:text="Runtime"
                 android:textColor="@color/font_grey"/>
-
+            <!--  Rating -->
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="0dp"
@@ -81,7 +84,7 @@
                 android:text="Rating"
                 android:textColor="@color/font_grey"/>
         </LinearLayout>
-
+        <!--  Genre-->
         <TextView
             android:id="@+id/genre"
             android:layout_width="wrap_content"
@@ -90,8 +93,8 @@
             android:paddingTop="10dp"
             android:text="Genre"
             android:textColor="@color/font_grey"/>
-
-        <TextView
+        <!--  Plot-->
+        <EditText
             android:id="@+id/plot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,14 +104,26 @@
             android:text="Plot"
             android:textColor="@color/dark"/>
 
+        <!--  Update button-->
         <Button
-            android:id="@+id/addFavBtn"
+            android:id="@+id/updateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/btn_green"
             android:layout_marginTop="15dp"
             android:textSize="15sp"
-            android:layout_gravity="end"
-            android:text="Add to Favorite"/>
+            android:layout_gravity="start"
+            android:text="Update"/>
+        <!--  Delete button-->
+        <Button
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/btn_red"
+            android:layout_marginTop="15dp"
+            android:textSize="15sp"
+            android:layout_gravity="start"
+            android:text="Delete From List"/>
+
     </LinearLayout>
 </ScrollView>

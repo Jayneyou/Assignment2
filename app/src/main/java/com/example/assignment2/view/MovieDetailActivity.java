@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.assignment2.databinding.MovieDetailBinding;
-import com.example.assignment2.model.Movie;
-import com.example.assignment2.utils.ApiClient;
 
+import com.example.assignment2.viewmodel.FavViewModel;
 import com.example.assignment2.viewmodel.MovieViewModel;
 
-import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -29,41 +28,48 @@ public class MovieDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String imdbID = intent.getStringExtra("imdbID");
 
-        // -------- call movie detail api
-        ApiClient.getMovieDetail(imdbID, new ApiClient.ApiCallback() {
-            @Override
-            public void onSuccess(List<Movie> movieList) {
-            }
+        // --------- get data from viewmodel
+        MovieViewModel movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        FavViewModel favViewModel = new ViewModelProvider(this).get(FavViewModel.class);
 
-            @Override
-            public void onSuccess(Movie movieDetail) {
-                runOnUiThread(() -> {
-                    MovieViewModel.setMovieDetail(movieDetail);
+        movieViewModel.fetchMovieDetail(imdbID);
 
-                    // ----- update ui
-                    binding.title.setText(movieDetail.getTitle());
-                    binding.year.setText(movieDetail.getYear());
-                    binding.plot.setText(movieDetail.getPlot());
-                    binding.rating.setText(movieDetail.getImdbRating());
-                    binding.studio.setText(movieDetail.getProduction());
+        // ---------- observe data
+        movieViewModel.getMovieDetail().observe(this, movie -> {
+            if (movie != null) {
+                binding.title.setText(movie.getTitle());
+                binding.year.setText(movie.getYear());
+                binding.plot.setText(movie.getPlot());
+                binding.rating.setText(movie.getImdbRating());
+                binding.runtime.setText(movie.getRuntime());
+                binding.genre.setText(movie.getGenre());
 
-                    // ----- update image
-                    Glide.with(MovieDetailActivity.this)
-                            .load(movieDetail.getPosterUrl())
-                            .into(binding.poster);
+                Glide.with(MovieDetailActivity.this)
+                        .load(movie.getPosterUrl())
+                        .into(binding.poster);
+
+                // ---------- add to favorites button listener
+                binding.addFavBtn.setOnClickListener(v -> {
+                    favViewModel.addToFavorites(movie);
                 });
+            } else {
+                Toast.makeText(this, "Movie not found", Toast.LENGTH_SHORT).show();
             }
+        });
 
-            @Override
-            public void onError(String errorMessage) {
-                runOnUiThread(() -> {
-                    Toast.makeText(MovieDetailActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
-                });
 
+        movieViewModel.getToastMessage().observe(this, msg -> {
+            if (msg != null) {
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
         // ---------- back button
         binding.backButton.setOnClickListener(v -> finish());
+
+        // --------- add button observe toast message
+        favViewModel.getToastMessage().observe(this, message -> {
+            Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+        });
     }
 }

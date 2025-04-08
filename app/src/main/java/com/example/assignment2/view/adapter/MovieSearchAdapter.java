@@ -4,11 +4,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.assignment2.databinding.MovieItemBinding;
 import com.example.assignment2.model.Movie;
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
     private final OnMovieClickListener onMovieClickListener;
@@ -18,7 +20,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void onMovieClick(Movie movie);
     }
 
-    public MovieAdapter(List<Movie> movieList, OnMovieClickListener onMovieClickListener) {
+    public MovieSearchAdapter(List<Movie> movieList, OnMovieClickListener onMovieClickListener) {
         this.movieList = movieList;
         this.onMovieClickListener = onMovieClickListener;
     }
@@ -58,7 +60,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             binding.title.setText(movie.getTitle());
             binding.studio.setText(movie.getProduction());
             binding.rating.setText(movie.getImdbRating());
-            binding.year.setText(movie.getYear());
+
+            Glide.with(binding.poster.getContext())
+                    .load(movie.getPosterUrl())
+                    .into(binding.poster);
 
             binding.getRoot().setOnClickListener(v -> {
                 if (onMovieClickListener != null) {
